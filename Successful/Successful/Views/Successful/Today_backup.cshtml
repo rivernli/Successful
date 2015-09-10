@@ -1,0 +1,130 @@
+﻿@{
+    ViewBag.Title = "成功今日";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@section head{}
+
+@section featured{
+    <div class="main-content">
+        @* -- 面包屑导航条 -- *@
+        <div class="breadcrumbs" id="breadcrumbs">
+            <script type="text/javascript">
+                try { ace.settings.check('breadcrumbs', 'fixed') } catch (e) { }
+            </script>
+
+            <ul class="breadcrumb">
+                <li>
+                    <i class="ace-icon fa fa-home home-icon"></i>
+                    <a href="@Url.Content("~/Successful/Today")">主页</a>
+                </li>
+
+                <li class="active">成功今日</li>
+            </ul>
+        </div>
+
+        <div class="col-xs-9" style="padding:0px 0px 0px">
+            <div class="widget-box">
+                <div class="widget-header widget-header-flat" style="text-align:center;padding-top:10px">
+
+                    <a href="#" class="pull-left">
+                        <i class="ace-icon fa fa-calendar-o bigger-240"></i>
+                    </a>
+                    
+                    @* ------ 日程 ------ *@
+                    <a href="javascript:void(0)" onclick="doSchedule(0)" target="_blank" title="新建日程" class="pull-left butLeft">             @* 在网页编程中，一般让一个超链接点击后不链接到任何地方，而鼠标移上去仍然显示手指形状的图标，就用javascript:void(0)，然后真实执行的操作，是在这个a标签后面加onclick="xxxxx"，就是鼠标单击后执行某个Javascript函数进行具体的操作，这样可以做更多的事情，比如根据某个值进行判断跳转到不同的页面等等。 *@
+                        <i class="ace-icon fa fa-calendar bigger-240 orange"></i>
+                    </a>
+
+                    <a href="#" class="pull-left butLeft">
+                        <i class=" ace-icon fa fa-file-text-o bigger-240"></i>
+                    </a>
+                    <a href="#" class="pull-left butLeft">
+                        <i class="ace-icon fa fa-calendar-o bigger-240"></i>
+                    </a>
+                    <a href="#" class="pull-left butLeft">
+                        <i class="ace-icon fa fa-calendar-o bigger-240"></i>
+                    </a>
+                    <a href="#" class="pull-left butLeft">
+                        <i class="ace-icon fa fa-calendar-o bigger-240"></i>
+                    </a>
+                    <a href="#" class="pull-left butLeft">
+                        <i class="ace-icon fa fa-calendar-o bigger-240"></i>
+                    </a>
+                    <a href="#" class="pull-left butLeft">
+                        <i class="ace-icon fa fa-calendar-o bigger-240"></i>
+                    </a>
+                    <a href="#" class="pull-left butLeft">
+                        <i class="ace-icon fa fa-plus-square bigger-240"></i>
+                    </a>
+                    
+                    @Html.Label(String.Format("{0:D}", DateTime.Now))
+                </div>
+                <div class="widget-main">
+                    <div>
+                        <table align="center" style="width:100%">
+                            <tr>
+                                <td>
+                                    <form id="fm" method="post"></form>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-3" style="padding:0px 0px 0px 0px">
+            <div class="widget-box">
+                <div class="widget-header widget-header-flat" style="text-align:center">
+                    <h4 style="color:#b20419">梦想板</h4>
+                </div>
+                <div class="widget-main">
+                    <img src="#" />
+                </div>
+                <div class="widget-header widget-header-flat" style="text-align:center">
+                    <h6 style="color:#b20419">梦想板</h6>
+                </div>
+                <div class="widget-header widget-header-flat" style="text-align:center">
+                    <h6 style="color:#b20419">梦想板</h6>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+    <script type="text/javascript">
+
+    </script>
+
+    <style>
+        .tab-content {
+            padding:0px 0px !important;
+        }
+
+        .butLeft {
+            padding-left:10px;
+        }
+    </style>
+
+    }
+
+@section FootScript{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            
+            //回车键默认按钮 Search的单击事件
+            $(document).keydown(function (e) {
+                if (e.keyCode == 13) {
+                    $("#btnSearch").click();
+                    return false;
+                }
+            });
+
+            $bi.form.generateQuery({ listName: 'DefaultSearch', parenttId: "fm" });
+
+        })
+        
+    </script>
+    }

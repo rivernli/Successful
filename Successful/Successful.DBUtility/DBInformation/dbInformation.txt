@@ -1,0 +1,90 @@
+﻿1、SYS_FieldCategory
+
+	CREATE TABLE [dbo].[SYS_FieldCategory](
+	[ID] [int] NOT NULL,
+	[ParentID] [int] NULL,
+	[CategoryName] [nvarchar](50) NOT NULL,
+	[Description] [nvarchar](100) NULL,
+	[AllowedRoles] [varchar](200) NULL,
+	[ActivityID] [nvarchar](200) NULL,
+	[TemplateID] [int] NULL,
+	[CategoryType] [varchar](50) NULL,
+	[Sort] [int] NULL,
+	[ColSpan] [int] NULL,
+	[Upload] [int] NOT NULL
+	) ON [PRIMARY]
+
+	GO
+
+	SET ANSI_PADDING OFF
+	GO
+
+	ALTER TABLE [dbo].[SYS_FieldCategory] ADD  CONSTRAINT [DF_SYS_FieldCategory_Upload]  DEFAULT ((0)) FOR [Upload]
+	GO
+
+--=======================================================================================================================
+2、SYS_FieldGroup
+
+CREATE TABLE [dbo].[SYS_FieldGroup](
+	[ID] [int] NOT NULL,
+	[GroupName] [nvarchar](50) NOT NULL,
+	[GroupType] [varchar](50) NOT NULL,
+	[SourceName] [varchar](200) NULL,
+	[SourceKey] [varchar](200) NULL,
+	[SubRelationFields] [varchar](500) NULL,
+	[Sort] [int] NULL,
+	[Authority] [bit] NOT NULL CONSTRAINT [DF_SYS_FieldGroup_Authority]  DEFAULT ((1)),
+ CONSTRAINT [PK_SYS_FieldGroup] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+--=======================================================================================================================
+
+3.SYS_FieldGroupDetail
+
+CREATE TABLE [dbo].[SYS_FieldGroupDetail](
+	[ID] [int] IDENTITY(1,1) NOT NULL,
+	[GroupID] [int] NOT NULL,
+	[FieldID] [int] NOT NULL,
+	[UID] [varchar](20) NULL,
+	[Width] [int] NULL,
+	[Format] [nvarchar](50) NULL,
+	[Sort] [int] NULL,
+ CONSTRAINT [PK_SYS_FieldGroupDetail] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+--=======================================================================================================================
+
+4.SYS_FieldInfo
+CREATE TABLE [dbo].[SYS_FieldInfo](
+	[ID] [int] NOT NULL,
+	[CategoryID] [int] NOT NULL,
+	[FieldName] [varchar](50) NOT NULL,
+	[DisplayName] [nvarchar](200) NULL,
+	[TableName] [nvarchar](50) NULL,
+	[DataType] [varchar](50) NULL,
+	[SubDataType] [varchar](100) NULL,
+	[DataOptions] [varchar](200) NULL,
+	[KeyValueSource] [nvarchar](800) NULL,
+	[DefaultValue] [nvarchar](100) NULL,
+	[Width] [int] NULL,
+	[Format] [varchar](50) NULL,
+	[Visible] [tinyint] NULL,
+	[Enable] [tinyint] NULL,
+	[ColSpan] [int] NULL,
+	[ExtEmptyColSpan] [int] NULL CONSTRAINT [DF_SYS_FieldInfo_ExtEmptyColSpan_1]  DEFAULT ((0)),
+	[Align] [varchar](50) NULL,
+	[Sort] [int] NULL,
+	[Status] [tinyint] NOT NULL CONSTRAINT [DF_SYS_FieldInfo_Status]  DEFAULT ((1)),
+ CONSTRAINT [PK_SYS_FieldInfo] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO

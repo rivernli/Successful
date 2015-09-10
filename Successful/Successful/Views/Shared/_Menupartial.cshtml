@@ -1,0 +1,100 @@
+﻿<div id="sidebar" class="sidebar responsive">
+    <script type="text/javascript">
+        try { ace.setting.check('sidebar', 'fixed') } catch (e) { }
+    </script>
+
+    <div class="sidebar-shortcuts" id="sidebar-shortcuts">
+        @* 菜单最上面的四个按钮 *@
+        <div class="sidebar-shortcuts-large" id="sidebar-shortcuts-large">
+            <button class="btn btn-success">
+                <i class="ace-icon fa fa-calendar-o" title="新建日程"></i>
+            </button>
+
+            <button class="btn btn-info">
+                <i class="ace-icon fa fa-bar-chart-o" title="新建任务"></i>
+            </button>
+
+            <button class="btn btn-warning">
+                <i class="ace-icon fa fa-users" title="新建人脉"></i>
+            </button>
+
+            <button class="btn btn-danger">
+                <i class="ace-icon fa fa-file-text-o" title="新建资料"></i>
+            </button>
+
+            <!-- /section:basics/sidebar.layout.shortcuts -->
+        </div>
+
+        @* 菜单最上面的四个按钮收缩后显示的图 *@
+        <div class="sidebar-shortcuts-mini" id="sidebar-shortcuts-mini">
+            <span class="btn btn-success"></span>
+
+            <span class="btn btn-info"></span>
+
+            <span class="btn btn-warning"></span>
+
+            <span class="btn btn-danger"></span>
+        </div>
+    </div>
+
+    @* 菜单 *@
+    <ul class="nav nav-list" id="myMenu">
+        <li class="active">
+            <a href="@Url.Content("~/Successful/Today")">
+                <i class="menu-icon fa fa-calendar-o"></i>
+                <span class="menu-text">今日成功</span>
+            </a>
+        </li>
+        <li>
+            <a href="@Url.Content("~/Successful/WorkList")" title="工作栏">
+                <i class="menu-icon fa fa-wordpress"></i>
+                <span class="menu-text">工作篮</span>
+            </a>
+        </li>
+        <li>
+            <a href="@Url.Content("~/Successful/Target")" title="目标">
+                <i class="menu-icon fa fa-flag-o"></i>
+                <span class="menu-text">目标</span>
+            </a>
+        </li>
+        <li>
+            <a href="@Url.Content("~/Successful/Schedule")" title="日程表">
+                <i class="menu-icon fa fa-bar-chart-o"></i>
+                <span class="menu-text">日程表</span>
+            </a>
+        </li>
+        <li>
+            <a href="@Url.Content("~/Successful/Task")" title="任务">
+                <i class="menu-icon fa fa-tasks"></i>
+                <span class="menu-text">任务</span>
+            </a>
+        </li>
+        <li>
+            <a href="@Url.Content("~/Successful/Connections")" title="人脉">
+                <i class="menu-icon fa fa-cubes"></i>
+                <span class="menu-text">人脉</span>
+            </a>
+        </li>
+        <li>
+            <a href="@Url.Content("~/Successful/Diary")" title="日记资料">
+                <i class="menu-icon fa fa-file-text-o"></i>
+                <span class="menu-text">日记资料</span>
+            </a>
+        </li>
+        <li>
+            <a href="@Url.Content("~/Successful/memorandum")" title="备忘录">
+                <i class="menu-icon fa fa-clipboard"></i>
+                <span class="menu-text">备忘录</span>
+            </a>
+        </li>
+    </ul>
+
+    <!-- #section:basics/sidebar.layout.minimize -->
+    <div class="sidebar-toggle sidebar-collapse" id="sidebar-collapse">
+        <i class="ace-icon fa fa-angle-double-left" data-icon1="ace-icon fa fa-angle-double-left" data-icon2="ace-icon fa fa-angle-double-right"></i>
+    </div>
+</div>
+
+
+
+

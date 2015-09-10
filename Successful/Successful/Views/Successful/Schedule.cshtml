@@ -1,0 +1,574 @@
+﻿@{
+    ViewBag.Title = "日程表";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section head{
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE9" />
+    <title>成功助理 - 日程表</title>
+    <link rel="stylesheet" href="@Url.Content("~/assets/css/bootstrap.min.css")" />
+    <link rel="stylesheet" href="@Url.Content("~/assets/css/font-awesome.min.css")" />
+    <link rel="stylesheet" href="@Url.Content("~/assets/css/opensans.css")" />
+    <link rel="stylesheet" href="@Url.Content("~/assets/css/jquery-ui-1.10.3.full.min.css")" />
+    <link rel="stylesheet" href="@Url.Content("~/assets/css/chosen.css")" />
+    <link rel="stylesheet" href="@Url.Content("~/assets/css/daterangepicker.css")" />
+    <link rel="stylesheet" href="@Url.Content("~/assets/css/datepicker.css")" />
+    <link rel="stylesheet" href="@Url.Content("~/assets/css/bootstrap-timepicker.css")"/>
+    <link rel="stylesheet" href="@Url.Content("~/assets/css/bootstrap-timepicker.css")">
+    <link rel="stylesheet" href="@Url.Content("~/assets/css/ui.jqgrid.css")" />
+    <link rel="stylesheet" href="@Url.Content("~/assets/css/ace.min.css")" />
+    <link rel="stylesheet" href="@Url.Content("~/assets/css/ace-rtl.min.css")" />
+    <link rel="stylesheet" href="@Url.Content("~/assets/css/ace-skins.min.css")" />
+    <link rel="stylesheet" href="@Url.Content("~/assets/css/fullcalendar.css")" />
+    <link rel="stylesheet" href="@Url.Content("~/assets/css/style.css")" />
+    <script src="@Url.Content("~/assets/js/ace-extra.min.js")"></script>
+</head> 
+}
+
+@section featured{
+<div class="main-content">
+
+    <div class="breadcrumbs" id="breadcrumbs">
+        <script type="text/javascript">
+            try { ace.settings.check('breadcrumbs', 'fixed') } catch (e) { }
+        </script>
+
+        <ul class="breadcrumb">
+            <li>
+                <i class="ace-icon fa fa-home home-icon"></i>
+                <a href="@Url.Content("~/Successful/Today")">主页</a>
+            </li>
+
+            <li class="active">日程表</li>
+        </ul>
+    </div>
+
+    <div class="page-content">
+        <div class="row tab-content">
+            <div class="col-xs-12">
+                <div class="row">
+                    <!--左边树-->
+                    <div class="col-xs-3">
+                        <div class="widget-box">
+                            <div class="widget-header" style="text-align:center;vertical-align:bottom;">
+                                <span class="widget-title">@DateTime.Now.ToShortDateString()</span>
+                            </div>
+                            <div class="wigget-main">
+                                calender
+                            </div>
+                        </div>
+                        <div class="widget-box">
+                            <div class="widget-header" style="text-align:center;vertical-align:bottom;">
+                                <span class="widget-title">日程安排</span>
+                            </div>
+                            <div class="widget-main">
+                                <table>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>2</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="widget-box transparent">
+                            <div class="widget-header" style="text-align:center;vertical-align:bottom;">
+                                <span class="widget-title">拖拽事件</span>
+                            </div>
+                            <div class="widget-body">
+                                <div class="widget-main no-padding">
+                                    <div class="external-event">
+                                        <div class="external-event label-grey" data-class="label-grey">
+                                            <i class="ace-icon fa fa-arrows"></i>
+                                            My Event 1
+                                        </div>
+
+                                        <div class="external-event label-success" data-class="label-success">
+                                            <i class="ace-icon fa fa-arrows"></i>
+                                            My Event 2
+                                        </div>
+
+                                        <div class="external-event label-danger" data-class="label-danger">
+                                            <i class="ace-icon fa fa-arrows"></i>
+                                            My Event 3
+                                        </div>
+
+                                        <div class="external-event label-purple" data-class="label-purple">
+                                            <i class="ace-icon fa fa-arrows"></i>
+                                            My Event 4
+                                        </div>
+
+                                        <div class="external-event label-yellow" data-class="label-yellow">
+                                            <i class="ace-icon fa fa-arrows"></i>
+                                            My Event 5
+                                        </div>
+
+                                        <div class="external-event label-pink" data-class="label-pink">
+                                            <i class="ace-icon fa fa-arrows"></i>
+                                            My Event 6
+                                        </div>
+
+                                        <div class="external-event label-info" data-class="label-info">
+                                            <i class="ace-icon fa fa-arrows"></i>
+                                            My Event 7
+                                        </div>
+
+                                        <label>
+                                            <input type="checkbox" class="ace ace-checkbox" id="drop-remove" />
+                                            <span class="lbl"> Remove after drop</span>
+                                        </label>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--右边日历-->
+                    <div class="col-xs-9" style="padding:0px 0px 0px 0px">
+                        <div class="space"></div>
+                        <div id="calendar"></div>
+                    </div>
+                </div>
+            </div> <!--/. col -->
+        </div> <!--/.row-->
+    </div> <!-- /.page-conntent-->
+</div>
+
+<!--------------------------------------------------------------------------------------------------------------------------------------------->
+<!-- basic scripts -->
+<!--[if !IE]> -->
+<!--[if !IE]> -->
+
+<script type="text/javascript">
+    window.jQuery || document.write("<script src='@Url.Content("~/assets/js/jquery-2.0.3.min.js")'>" + "<" + "/script>");
+</script>
+
+<!-- <![endif]-->
+<!--[if IE]>
+<script type="text/javascript">
+     window.jQuery || document.write("<script src='@Url.Content("~/assets/js/jquery-1.10.2.min.js")'>"+"<"+"/script>");
+</script>
+<![endif]-->
+
+<script type="text/javascript">
+    if ("ontouchend" in document) document.write("<script src='@Url.Content("~/assets/js/jquery.mobile.custom.min.js")'>" + "<" + "/script>");
+</script>
+<script src="@Url.Content("~/assets/js/bootstrap.min.js")"></script>
+<script src="@Url.Content("~/assets/js/typeahead-bs2.min.js")"></script>
+<script src="@Url.Content("~/assets/js/fullcalendar.min.js")"></script>
+<script src="@Url.Content("~/assets/js/bootbox.min.js")"></script>
+<script src="@Url.Content("~/assets/js/date-time/bootstrap-timepicker.min.js")"></script>
+<!-- page specific plugin scripts -->
+<!-- ace scripts -->
+<script src="@Url.Content("~/assets/js/jqGrid/jquery.jqGrid.min.js")"></script>
+<script src="@Url.Content("~/assets/js/jqGrid/i18n/grid.locale-en.js")"></script>
+<script src="@Url.Content("~/assets/js/jquery-ui-1.10.3.full.min.js")"></script>
+<script src="@Url.Content("~/assets/js/jquery.ui.touch-punch.min.js")"></script>
+
+<script src="@Url.Content("~/assets/js/date-time/daterangepicker.min.js")"></script>
+<script src="@Url.Content("~/assets/js/date-time/bootstrap-datepicker.min.js")"></script>
+<script src="@Url.Content("~/assets/js/date-time/moment.min.js")"></script>
+<script src="@Url.Content("~/assets/js/chosen.jquery.min.js")"></script>
+<script src="@Url.Content("~/assets/js/ace-elements.min.js")"></script>
+<script src="@Url.Content("~/assets/js/ace.min.js")"></script>
+<script src="@Url.Content("~/Scripts/publiclib.js")"></script>
+<script src="@Url.Content("~/Scripts/leftmenu.js")"></script>
+<script src="@Url.Content("~/Scripts/syslib.js")"></script>
+
+<!-- inline scripts related to this page -->
+<!--------------------------------------------------------------------------------------------------------------------------------------------->
+<style>
+    .tab-content {
+        padding: 0px 0px !important;
+    }
+
+    .butLeft {
+        padding-left: 10px;
+    }
+</style>
+
+<script type="text/javascript">
+    jQuery(function($){
+    var PageType = 'View';
+
+    $('#external-events div.external-event').each(function () {
+
+        // create an Event Object (http://arshaw.com/fullcalendar/docs/event_data/Event_Object/)
+        // it doesn't need to have a start or end
+        var eventObject = {
+            title: $.trim($(this).text()) // use the element's text as the event title
+        };
+
+        // store the Event Object in the DOM element so we can get to it later
+        $(this).data('eventObject', eventObject);
+
+        // make the event draggable using jQuery UI
+        $(this).draggable({
+            zIndex: 999,
+            revert: true,      // will cause the event to go back to its
+            revertDuration: 0  //  original position after the drag
+        });
+
+        $('.date-picker').datepicker({
+            autoclose: true,
+            todayHighlight: true
+        })
+    });
+
+    $(document).ready(function () {
+        //alert();
+        loadcalendar();
+
+    });
+
+    function loadcalendar() {
+        //加载日历控件
+        var date = new Date();
+        var d = date.getDate();
+        var m = date.getMonth();
+        var y = date.getFullYear();
+
+        var calendar = $('#calendar').fullCalendar({
+            buttonHtml: {
+                prev: '<i class="ace-icon fa fa-chevron-left"></i>',
+                next: '<i class="ace-icon fa fa-chevron-right"></i>'
+            },
+            header: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'month,agendaWeek,agendaDay'
+            },
+            events: [
+		    {
+		      title: 'All Day Event',
+		      start: new Date(y, m, 1),
+		      className: 'label-important'
+		    },
+		    {
+		      title: 'Long Event',
+		      start: new Date(y, m, d - 5),
+		      end: new Date(y, m, d - 2),
+		      className: 'label-success'
+		    },
+		    {
+		      title: 'Some Event',
+		      start: new Date(y, m, d - 3, 16, 0),
+		      allDay: false
+		    }
+            ]
+		,
+            editable: true, // this allows things to be dropped onto the calendar !!!
+            droppable: true, // this allows things to be dropped onto the calendar !!!
+            drop: function (date, allDay) { // this function is called when something is dropped
+
+                // retrieve the dropped element's stored Event Object
+                var originalEventObject = $(this).data('eventObject');
+                var $extraEventClass = $(this).attr('data-class');
+
+
+                // we need to copy it, so that multiple events don't have a reference to the same object
+                var copiedEventObject = $.extend({}, originalEventObject);
+
+                // assign it the date that was reported
+                copiedEventObject.start = date;
+                copiedEventObject.allDay = allDay;
+                if ($extraEventClass) copiedEventObject['className'] = [$extraEventClass];
+
+                // render the event on the calendar
+                // the last `true` argument determines if the event "sticks" (http://arshaw.com/fullcalendar/docs/event_rendering/renderEvent/)
+                $('#calendar').fullCalendar('renderEvent', copiedEventObject, true);
+
+                // is the "remove after drop" checkbox checked?
+                if ($('#drop-remove').is(':checked')) {
+                    // if so, remove the element from the "Draggable Events" list
+                    $(this).remove();
+                }
+            }
+		,
+            selectable: true,
+            selectHelper: true,
+            select: function (start, end, allDay) {
+
+                bootbox.prompt("新建日程 - 标题:", function (title) {
+                    if (title !== null) {
+                        calendar.fullCalendar('renderEvent',
+                            {
+                                title: title,
+                                start: start,
+                                end: end,
+                                allDay: allDay
+                            },
+                            true // make the event "stick"
+                        );
+                    }
+                });
+
+
+                calendar.fullCalendar('unselect');
+            }
+		,
+            eventClick: function (calEvent, jsEvent, view) {
+
+                //display a modal
+                var modal_ =
+                '<div class="modal fade">\
+			        <div class="modal-dialog">\
+			            <div class="modal-content">\
+				            <div class="modal-body">\
+				                <button type="button" class="close" data-dismiss="modal" style="margin-top:-10px;">&times;</button>\
+				                <form class="no-margin">\
+					                <label>Change event name &nbsp;</label>\
+					                <input class="middle" autocomplete="off" type="text" value="' + calEvent.title + '" />\
+					                <button type="submit" class="btn btn-sm btn-success"><i class="ace-icon fa fa-check"></i> Save</button>\
+				                </form>\
+				            </div>\
+				            <div class="modal-footer">\
+					            <button type="button" class="btn btn-sm btn-danger" data-action="delete"><i class="ace-icon fa fa-trash-o"></i> Delete Event</button>\
+					            <button type="button" class="btn btn-sm" data-dismiss="modal"><i class="ace-icon fa fa-times"></i> Cancel</button>\
+				            </div>\
+			            </div>\
+			        </div>\
+                </div>';
+
+                var modal = 
+                    '<div class="modal fade">\
+                        <div class="modal-dialog" style="width:800px;">\
+                            <div class="modal-content">\
+                                <div class="modal-header">\
+                                    <button type="button" class="close" data-dismiss="modal" style="margin-top:-10px;">&times;</button>\
+                                    <span>日程</span>\
+                                </div>\
+                                <div class="modal-body">\
+                                    <form class="no-margin">\
+                                    <button type="button" class = btn btn-sm btn-white"  data-action = "save"><i class="ace-icon fa fa-save"></i>保存</button>\
+                                    <button type="button" class = btn btn-sm btn-danger" data-action = "save"><i class="ace-icon fa fa-calendar-times-o"></i>保存并关闭</button>\
+                                    <button type="button" class = btn btn-sm btn-danger" data-action = "save"><i class="ace-icon fa fa-paste"></i>保存并新增</button>\
+                                    <input id="id-sign-finish" type="checkbox"></input>\
+                                    <button type="button" class = btn btn-sm btn-danger" data-action = "save"><i class="ace-icon fa fa-paste"></i>标记完成</button>\
+                                    </label>\
+                                    <button type="button" class = btn btn-sm btn-danger" data-action = "delete"><i class="ace-icon fa fa-trash-o"></i>删除</button>\
+                                    <button type="button" class = btn btn-sm btn-danger" data-dismiss="modal"><i class="ace-icon fa fa-power-off"></i>关闭</button>\
+                                    <div class="widget-main" style="padding:0px 0px 0px">\
+                                        <div class="widget-body">\
+                                            <ul class="nav nav-tabs" id="myTtab">\
+                                                <li class="active">\
+                                                    <a data-toggle="tab" href="#sub-Schedule">\
+                                                        <i class="green ace-icon fa fa-calendar-o"></i>\
+                                                        日程\
+                                                    </a>\
+                                                </li>\
+                                                <li>\
+                                                    <a data-toggle="tab" href="#Replte">\
+                                                        重复周期\
+                                                    </a>\
+                                                </li>\
+                                            </ul>\
+                                            <div class="tab-content">\
+                                                <div id="sub-Schedule" class="tab-pane fade in active">\
+                                                    <div class="widget-box">\
+                                                        <div class="widget-main">\
+                                                            <div class="row">\
+                                                                <div class="col-xs-8">\
+                                                                    <form class="form-horizontal" role="form">\
+                                                                        <div class="form-group has-error">\
+                                                                            <label class="col-sm-2 control-label no-padding-right" for="Title1"> 日程主题 </label>\
+                                                                            <div class="col-sm-10">\
+                                                                                <input class="form-control" id="Title1" type="text" placeholder="日程主题">\
+                                                                            </div>\
+                                                                        </div>\
+                                                                        <div class="form-group">\
+                                                                            <label class="col-sm-2 control-label no-padding-right" for="Target1"> 归属目标 </label>\
+                                                                            <div class="col-sm-10">\
+                                                                                <input class="form-control" id="Target1" type="text" placeholder="归属目标">\
+                                                                            </div>\
+                                                                        </div>\
+                                                                        <!--开始时间-->\
+                                                                        <div class="form-group">\
+                                                                            <label class="col-sm-2 control-label no-padding-right" for="StartDate1"> 开始时间 </label>\
+                                                                            <div class="col-xs-10">\
+                                                                                <div class="input-group">\
+                                                                                    <input class="form-control date-picker" id="StartDate1" type="text" data-date-format="dd-mm-yyyy"></input>\
+                                                                                    <span class="input-group-addon">\
+                                                                                        <i class="fa fa-calendar bigger-110"></i>\
+                                                                                    </span>\
+                                                                                    <div class="input-group bootstrap-timepicker">\
+															                            <input class="form-control" id="timepicker1" type="text">\
+															                            <span class="input-group-addon">\
+																                            <i class="fa fa-clock-o bigger-110"></i>\
+															                            </span>\
+														                            </div>\
+                                                                                </div>\
+                                                                            </div>\
+                                                                        </div>\
+                                                                        <!--开始时间-->\
+                                                                        <!--结束时间-->\
+                                                                        <div class="form-group">\
+                                                                            <label class="col-sm-2 control-label no-padding-right" for="EndDate1"> 结束时间 </label>\
+                                                                            <div class="col-xs-10">\
+                                                                                <div class="input-group">\
+                                                                                    <input class="form-control date-picker" id="EndDate1" type="text" data-date-format="dd-mm-yyyy"></input>\
+                                                                                    <span class="input-group-addon">\
+                                                                                        <i class="fa fa-calendar bigger-110"></i>\
+                                                                                    </span>\
+                                                                                    <div class="input-group bootstrap-timepicker">\
+															                            <input class="form-control" id="timepicker1" type="text">\
+															                            <span class="input-group-addon">\
+																                            <i class="fa fa-clock-o bigger-110"></i>\
+															                            </span>\
+														                            </div>\
+                                                                                </div>\
+                                                                            </div>\
+                                                                        </div>\
+                                                                        <!--结束时间-->\
+                                                                        <hr\>\
+                                                                        <!--行动备注-->\
+                                                                        <div class="form-group">\
+                                                                            <label class="col-sm-2 control-label no-padding-right" for="ActiveRemark1"> 行动备注 </label>\
+                                                                            <div class="col-xs-10">\
+                                                                                <textarea class="form-control" id="ActiveRemark1" placeholder="" rows="8"></textarea>\
+                                                                            </div>\
+                                                                        </div>\
+                                                                        <div class="form-group">\
+                                                                            <label class="col-sm-2 control-label no-padding-right" for="Attachment1"> 附件 </label>\
+                                                                            <div class="col-xs-10">\
+                                                                                <textarea class="form-control" id="Attachment1" placeholder="" rows="3"></textarea>\
+                                                                            </div>\
+                                                                        </div>\
+                                                                        <div class="form-group">\
+                                                                            <label class="col-sm-2 control-label no-padding-right" for="Connecter1"> 关联人 </label>\
+                                                                            <div class="col-xs-10">\
+                                                                                <textarea class="form-control" id="Connecter1" placeholder="" rows="3"></textarea>\
+                                                                            </div>\
+                                                                        </div>\
+                                                                    </form>\
+                                                                </div>\
+                                                                <div class="col-xs-4">\
+                                                                    <form class="form-horizontal" role="form">\
+                                                                        <label class="col-sm-3 control-label no-padding-right" for="Sign1"> 标签 </label>\
+                                                                            <div class="col-sm-9">\
+                                                                                <select class="form-control" id="Sign1">\
+                                                                                    <option value=""></option>\
+                                                                                    <option value="11"></option>\
+                                                                                    <option value="22"></option>\
+                                                                                </select>\
+                                                                            </div>\
+                                                                    </form>\
+                                                                    <!--环境-->\
+                                                                    <form class="form-horizontal" role="form">\
+                                                                        <label class="col-sm-3 control-label no-padding-right" for="Sign1"> 环境 </label>\
+                                                                            <div class="col-sm-9">\
+                                                                                <select class="form-control" id="Sign1">\
+                                                                                    <option value=""></option>\
+                                                                                    <option value="11"></option>\
+                                                                                    <option value="22"></option>\
+                                                                                </select>\
+                                                                            </div>\
+                                                                    </form>\
+                                                                    <!--重要性-->\
+                                                                    <form class="form-horizontal" role="form">\
+                                                                        <label class="col-sm-3 control-label no-padding-right" for="Sign1"> 重要性 </label>\
+                                                                            <div class="col-sm-9">\
+                                                                                <select class="form-control" id="Sign1">\
+                                                                                    <option value=""></option>\
+                                                                                    <option value="11"></option>\
+                                                                                    <option value="22"></option>\
+                                                                                </select>\
+                                                                            </div>\
+                                                                    </form>\
+                                                                    <!--类型-->\
+                                                                    <form class="form-horizontal" role="form">\
+                                                                        <label class="col-sm-3 control-label no-padding-left" for="Sign1"> 类型 </label>\
+                                                                            <div class="col-sm-9">\
+                                                                                <select class="form-control" id="Sign1">\
+                                                                                    <option value=""></option>\
+                                                                                    <option value="11"></option>\
+                                                                                    <option value="22"></option>\
+                                                                                </select>\
+                                                                            </div>\
+                                                                    </form>\
+                                                                    <div class="checkbox">\
+                                                                        <label>\
+                                                                        <input id="id-remender1" class="ace" type="checkbox"></input>\
+                                                                        <span class="lbl"> 提醒</span>\
+                                                                        <a href="#">设置</a>\
+                                                                        </label>\
+                                                                    </div>\
+                                                                    <div class="form-group">\
+                                                                        <label for="report1">总结</label>\
+                                                                        <textarea class="form-control" id="report1" placeholder="" rows="12"></textarea>\
+                                                                    </div>\
+                                                                </div>\
+                                                            </div>\
+                                                        </div>\
+                                                    </div>\
+                                                </div>\
+                                                <div id="Replte" class="tab-pane">\
+                                                    <div class="widget-box">\
+                                                        <div class="widget-main">\
+                                                            <div class="checkbox">\
+                                                                <label>\
+                                                                <input id="id-Replate" class="ace" type="checkbox"></input>\
+                                                                <span class="lbl"> 重复</span>\
+                                                                </label>\
+                                                            </div>\
+                                                        </div>\
+                                                </div>\
+                                            </div>\
+                                        </div>\
+                                    </div>\
+                                    </form>\
+                                </div>\
+                            </div>\
+                        </div>\
+                    </div>\
+                    ';
+
+                var modal = $(modal).appendTo('body');
+                modal.find('form').on('submit', function (ev) {
+                    ev.preventDefault();
+
+                    calEvent.title = $(this).find("input[type=text]").val();
+                    calendar.fullCalendar('updateEvent', calEvent);
+                    modal.modal("hide");
+                });
+                modal.find('button[data-action=delete]').on('click', function () {
+                    calendar.fullCalendar('removeEvents', function (ev) {
+                        return (ev._id == calEvent._id);
+                    })
+                    modal.modal("hide");
+                });
+
+                modal.modal('show').on('hidden', function () {
+                    modal.remove();
+                });
+
+
+                //console.log(calEvent.id);
+                //console.log(jsEvent);
+                //console.log(view);
+
+                // change the border color just for fun
+                //$(this).css('border-color', 'red');
+
+            }
+
+            //timeFormat: 'HH:mm TT',
+            // events: '@Url.Content("~/CustomerVisit/GetCustomerVisitList")' + '?keyUser=' + keyUser,
+            //eventClick: function (calEvent, jsEvent, view) {
+            //    CustomerVisitDetailed(calEvent.id);  //查看客户访问详细
+            //}
+        });
+    }
+    })
+</script>
+
+}
+
+
+
+
+
+}

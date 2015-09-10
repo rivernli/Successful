@@ -1,0 +1,304 @@
+﻿@{
+    ViewBag.Title = "成功今日";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section head{
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE9" />
+    <title>成功助理 - 今日成功</title>
+    <link rel="stylesheet" href="@Url.Content("~/assets/css/bootstrap.min.css")" />
+    <link rel="stylesheet" href="@Url.Content("~/assets/css/font-awesome.min.css")" />
+    <link rel="stylesheet" href="@Url.Content("~/assets/css/opensans.css")" />
+    <link rel="stylesheet" href="@Url.Content("~/assets/css/jquery-ui-1.10.3.full.min.css")" />
+    <link rel="stylesheet" href="@Url.Content("~/assets/css/chosen.css")" />
+    <link rel="stylesheet" href="@Url.Content("~/assets/css/daterangepicker.css")" />
+    <link rel="stylesheet" href="@Url.Content("~/assets/css/datepicker.css")" />
+    <link rel="stylesheet" href="@Url.Content("~/assets/css/bootstrap-timepicker.css")">
+    <link rel="stylesheet" href="@Url.Content("~/assets/css/ui.jqgrid.css")" />
+    <link rel="stylesheet" href="@Url.Content("~/assets/css/ace.min.css")" />
+    <link rel="stylesheet" href="@Url.Content("~/assets/css/ace-rtl.min.css")" />
+    <link rel="stylesheet" href="@Url.Content("~/assets/css/ace-skins.min.css")" />
+    <link rel="stylesheet" href="@Url.Content("~/assets/css/fullcalendar.css")" />
+    <link rel="stylesheet" href="@Url.Content("~/assets/css/style.css")" />
+    <script src="@Url.Content("~/assets/js/ace-extra.min.js")"></script>
+</head>    
+}
+
+@section featured{
+    <div class="main-content">
+        @* -- 面包屑导航条 -- *@
+        <div class="breadcrumbs" id="breadcrumbs">
+            <script type="text/javascript">
+                try { ace.settings.check('breadcrumbs', 'fixed') } catch (e) { }
+            </script>
+
+            <ul class="breadcrumb">
+                <li>
+                    <i class="ace-icon fa fa-home home-icon"></i>
+                    <a href="@Url.Content("~/Successful/Today")">主页</a>
+                </li>
+
+                <li class="active">成功今日</li>
+            </ul>
+        </div>
+
+        <div class="col-xs-9" style="padding:0px 0px 0px">
+            <div class="widget-box">
+                <div class="widget-header widget-header-flat" style="text-align:center;padding-top:10px">
+
+                    <a href="#" class="pull-left" title="新信息">
+                        <i class="ace-icon fa fa-calendar-o bigger-240"></i>
+                    </a>
+                    
+                    @* ------ 日程 ------ *@
+                    <a href="javascript:void(0)" onclick="doSchedule(0)" target="_blank" title="新建日程" class="pull-left butLeft">             @* 在网页编程中，一般让一个超链接点击后不链接到任何地方，而鼠标移上去仍然显示手指形状的图标，就用javascript:void(0)，然后真实执行的操作，是在这个a标签后面加onclick="xxxxx"，就是鼠标单击后执行某个Javascript函数进行具体的操作，这样可以做更多的事情，比如根据某个值进行判断跳转到不同的页面等等。 *@
+                        <i class="ace-icon fa fa-calendar bigger-240 orange"></i>
+                    </a>
+
+                    <a href="#" class="pull-left butLeft" title="新建任务">
+                        <i class=" ace-icon fa fa-file-text-o bigger-240"></i>
+                    </a>
+                    <a href="#" class="pull-left butLeft" title="新建人脉">
+                        <i class="ace-icon fa fa-calendar-o bigger-240"></i>
+                    </a>
+                    <a href="#" class="pull-left butLeft" title="新建资料">
+                        <i class="ace-icon fa fa-calendar-o bigger-240"></i>
+                    </a>
+                    <a href="#" class="pull-left butLeft" title="新日记">
+                        <i class="ace-icon fa fa-calendar-o bigger-240"></i>
+                    </a>
+                    <a href="#" class="pull-left butLeft" title="新建备忘录">
+                        <i class="ace-icon fa fa-calendar-o bigger-240"></i>
+                    </a>
+                    <a href="#" class="pull-left butLeft" title="新建目标">
+                        <i class="ace-icon fa fa-calendar-o bigger-240"></i>
+                    </a>
+                    <a href="#" class="pull-left butLeft" title="超级搜索">
+                        <i class="ace-icon fa fa-search-plus bigger-240"></i>
+                    </a>
+                    
+                    @*@Html.Label(String.Format("{0:F}", DateTime.Now))*@
+                    @if (DateTime.Now.TimeOfDay < new TimeSpan(12, 0, 0))
+                    { <span style="color:#b20419">@("上午好")</span>}
+                    else if (DateTime.Now.TimeOfDay < new TimeSpan(18, 0, 0))
+                    { <span style="color:#b20419">@("下午好")</span>}
+                    else
+                    { <span style="color:#b20419">@("晚上好")</span>}
+                    <span>&nbsp;</span>
+                    <span style="color:#b20419">@(String.Format("{0:F}", DateTime.Now))</span>
+</div>
+                <div class="body">
+                    <div class="widget-main" style="padding:0px 0px 0px">
+                        <div class="widget-body">
+                            <ul class="nav nav-tabs" id="myTtab">
+                                <li class="active">
+                                    <a data-toggle="tab" href="#Yesterday">
+                                        <i class="green ace-icon fa fa-home"></i>
+                                        昨天
+                                    </a>
+                                </li>
+                                <li>
+                                    <a data-toggle="tab" href="#Today">
+                                        今天
+                                        <span class="badge badge-danger">4</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a data-toggle="tab" href="#Tomorrow">
+                                        明天
+                                    </a>
+                                </li>
+                                <li>
+                                    <a data-toggle="tab" href="#Week">
+                                        本周
+                                    </a>
+                                </li>
+                                <li>
+                                    <a data-toggle="tab" href="#WaitingWork">
+                                        代办事项
+                                    </a>
+                                </li>
+                                <li>
+                                    <a data-toggle="tab" href="#AssignWork">
+                                        委派事项
+                                    </a>
+
+                                </li>
+                            </ul>
+                            <div class="tab-content">
+                                <div id="Yesterday" class="tab-pane fade in active">
+                                    <div class="widget-box">
+                                        <div class="widget-main">
+                                            <div>
+                                                <label for="form-field-8">日程</label>
+                                                <textarea class="form-control" id="form-field-8" placeholder=""></textarea>
+                                            </div>
+                                            <div>
+                                                <label for="form-field-8">任务</label>
+                                                <textarea class="form-control" id="form-field-8" placeholder=""></textarea>
+                                            </div>
+                                            <div>
+                                                <label for="form-field-8">工作栏信息</label>
+                                                <textarea class="form-control" id="form-field-8" placeholder="" rows="10"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="Today" class="tab-pane">
+                                    <div class="widget-box">
+                                        <div class="widget-main">
+                                            <div>
+                                                <label for="form-field-8">日程</label>
+                                                <textarea class="form-control" id="form-field-8" placeholder=""></textarea>
+                                            </div>
+                                            <div>
+                                                <label for="form-field-8">任务</label>
+                                                <textarea class="form-control" id="form-field-8" placeholder=""></textarea>
+                                            </div>
+                                            <div>
+                                                <label for="form-field-8">工作栏信息</label>
+                                                <textarea class="form-control" id="form-field-8" placeholder="" rows="10"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="Tomorrow" class="tab-pane">
+                                    <div class="widget-box">
+                                        <div class="widget-main">
+                                            <div>
+                                                <label for="form-field-8">日程</label>
+                                                <textarea class="form-control" id="form-field-8" placeholder=""></textarea>
+                                            </div>
+                                            <div>
+                                                <label for="form-field-8">任务</label>
+                                                <textarea class="form-control" id="form-field-8" placeholder=""></textarea>
+                                            </div>
+                                            <div>
+                                                <label for="form-field-8">工作栏信息</label>
+                                                <textarea class="form-control" id="form-field-8" placeholder="" rows="10"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="Week" class="tab-pane">
+                                    <div class="widget-box">
+                                        <div class="widget-main">
+                                            <div>
+                                                <label for="form-field-8">日程</label>
+                                                <textarea class="form-control" id="form-field-8" placeholder=""></textarea>
+                                            </div>
+                                            <div>
+                                                <label for="form-field-8">任务</label>
+                                                <textarea class="form-control" id="form-field-8" placeholder=""></textarea>
+                                            </div>
+                                            <div>
+                                                <label for="form-field-8">工作栏信息</label>
+                                                <textarea class="form-control" id="form-field-8" placeholder="" rows="10"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="WaitingWork" class="tab-pane">
+                                    <p>waitingwork</p>
+                                </div>
+                                <div id="AssignWork" class="tab-pane">
+                                    <p>assign work</p>
+                                    <a href="D://教程//Web page//ACE Admin V1.3.3//html/index.html" target="_blank">网页例子</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-3" style="padding:0px 0px 0px 0px">
+            <div class="widget-box">
+                <div class="widget-header widget-header-flat" style="text-align:center;vertical-align:central">
+                    <span class="widget-title" style="color:#b20419">梦想板</span>
+                </div>
+                <div class="widget-main">
+                    <img src="#" />
+                </div>
+                <div class="widget-header widget-header-flat" style="text-align:center">
+                    <span class="widget-title" style="color:#b20419">梦想板</span>
+                </div>
+                <div class="widget-header widget-header-flat" style="text-align:center">
+                    <span class="widget-title" style="color:#b20419">梦想板</span>
+                </div>
+            </div>
+        </div>
+    </div>
+<!--------------------------------------------------------------------------------------------------------------------------------------------->
+<!-- basic scripts -->
+<!--[if !IE]> -->
+<!--[if !IE]> -->
+
+<script type="text/javascript">
+    window.jQuery || document.write("<script src='@Url.Content("~/assets/js/jquery-2.0.3.min.js")'>" + "<" + "/script>");
+</script>
+
+<!-- <![endif]-->
+<!--[if IE]>
+<script type="text/javascript">
+     window.jQuery || document.write("<script src='@Url.Content("~/assets/js/jquery-1.10.2.min.js")'>"+"<"+"/script>");
+</script>
+<![endif]-->
+
+    <script type="text/javascript">
+        if ("ontouchend" in document) document.write("<script src='@Url.Content("~/assets/js/jquery.mobile.custom.min.js")'>" + "<" + "/script>");
+    </script>
+    <script src="@Url.Content("~/assets/js/bootstrap.min.js")"></script>
+    <script src="@Url.Content("~/assets/js/typeahead-bs2.min.js")"></script>
+    <script src="@Url.Content("~/assets/js/fullcalendar.min.js")"></script>
+    <script src="@Url.Content("~/assets/js/date-time/bootstrap-timepicker.min.js")"></script>
+    <!-- page specific plugin scripts -->
+    <!-- ace scripts -->
+    <script src="@Url.Content("~/assets/js/jqGrid/jquery.jqGrid.min.js")"></script>
+    <script src="@Url.Content("~/assets/js/jqGrid/i18n/grid.locale-en.js")"></script>
+    <script src="@Url.Content("~/assets/js/jquery-ui-1.10.3.full.min.js")"></script>
+    <script src="@Url.Content("~/assets/js/jquery.ui.touch-punch.min.js")"></script>
+
+    <script src="@Url.Content("~/assets/js/date-time/daterangepicker.min.js")"></script>
+    <script src="@Url.Content("~/assets/js/date-time/bootstrap-datepicker.min.js")"></script>
+    <script src="@Url.Content("~/assets/js/date-time/moment.min.js")"></script>
+    <script src="@Url.Content("~/assets/js/chosen.jquery.min.js")"></script>
+    <script src="@Url.Content("~/assets/js/ace-elements.min.js")"></script>
+    <script src="@Url.Content("~/assets/js/ace.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/publiclib.js")"></script>
+    <script src="@Url.Content("~/Scripts/leftmenu.js")"></script>
+    <script src="@Url.Content("~/Scripts/syslib.js")"></script>
+
+<!-- inline scripts related to this page -->
+<!--------------------------------------------------------------------------------------------------------------------------------------------->
+    <style>
+        .tab-content {
+            padding:0px 0px !important;
+        }
+
+        .butLeft {
+            padding-left:10px;
+        }
+    </style>
+
+        <script type="text/javascript">
+            $(document).ready(function () {
+
+                //回车键默认按钮 Search的单击事件
+                $(document).keydown(function (e) {
+                    if (e.keyCode == 13) {
+                        $("#btnSearch").click();
+                        return false;
+                    }
+                });
+
+                
+            })
+
+        </script>
+
+    }
+
+
+

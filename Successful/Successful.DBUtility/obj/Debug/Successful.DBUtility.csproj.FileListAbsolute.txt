@@ -1,0 +1,5 @@
+D:\Web\Successful\Successful\Successful.DBUtility\bin\Debug\Successful.DBUtility.dll
+D:\Web\Successful\Successful\Successful.DBUtility\bin\Debug\Successful.DBUtility.pdb
+D:\Web\Successful\Successful\Successful.DBUtility\obj\Debug\Successful.DBUtility.dll
+D:\Web\Successful\Successful\Successful.DBUtility\obj\Debug\Successful.DBUtility.pdb
+D:\Web\Successful\Successful\Successful.DBUtility\obj\Debug\Successful.DBUtility.csprojResolveAssemblyReference.cache

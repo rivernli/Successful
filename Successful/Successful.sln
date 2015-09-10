@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30501.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Successful.Web", "Successful\Successful.Web.csproj", "{8501E794-C578-442B-AF6B-C3824DC43024}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Successful.BLL", "Successful.BLL\Successful.BLL.csproj", "{1904C342-5A55-4DE4-AE66-27F933ED9F3C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Successful.DBUtility", "Successful.DBUtility\Successful.DBUtility.csproj", "{C092AB5B-E56E-4231-8D89-193F035964CA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8501E794-C578-442B-AF6B-C3824DC43024}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8501E794-C578-442B-AF6B-C3824DC43024}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8501E794-C578-442B-AF6B-C3824DC43024}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8501E794-C578-442B-AF6B-C3824DC43024}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1904C342-5A55-4DE4-AE66-27F933ED9F3C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1904C342-5A55-4DE4-AE66-27F933ED9F3C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1904C342-5A55-4DE4-AE66-27F933ED9F3C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1904C342-5A55-4DE4-AE66-27F933ED9F3C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C092AB5B-E56E-4231-8D89-193F035964CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C092AB5B-E56E-4231-8D89-193F035964CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C092AB5B-E56E-4231-8D89-193F035964CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C092AB5B-E56E-4231-8D89-193F035964CA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
